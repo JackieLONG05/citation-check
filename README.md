@@ -76,6 +76,20 @@ Open the frontend URL shown by Vite, usually:
 http://localhost:5173
 ```
 
+## Deploy as One Public Link
+
+The repository includes a production `Dockerfile` and `render.yaml`. On Render, the app runs as one web service: FastAPI serves both the API and the built React interface, so users only need one public URL.
+
+[Deploy to Render](https://render.com/deploy?repo=https://github.com/JackieLONG05/citation-check)
+
+After the Render deploy finishes, open the generated `.onrender.com` URL. That single URL is the Citation Check website and backend API.
+
+Notes:
+
+- The free Render plan can take a short time to wake up after inactivity.
+- Optional API keys can be added in Render environment variables: `CONTACT_EMAIL`, `SEMANTIC_SCHOLAR_API_KEY`, `OPENALEX_API_KEY`, `NCBI_API_KEY`, and `OPENAIRE_ACCESS_TOKEN`.
+- No `VITE_API_URL` is needed for this deployment because the frontend calls the same origin as the backend.
+
 Current local dev sessions can also be run detached with:
 
 ```bash
