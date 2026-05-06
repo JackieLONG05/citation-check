@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: citation-check
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health

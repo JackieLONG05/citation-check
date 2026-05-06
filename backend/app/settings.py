@@ -34,3 +34,9 @@ def openalex_api_key() -> str | None:
 
 def base_api_enabled() -> bool:
     return os.getenv("BASE_API_ENABLED", "").lower() in {"1", "true", "yes"}
+
+
+def frontend_origins() -> list[str]:
+    raw = os.getenv("FRONTEND_ORIGINS", "")
+    configured = [origin.strip() for origin in raw.split(",") if origin.strip()]
+    return configured or ["http://localhost:5173", "http://127.0.0.1:5173"]

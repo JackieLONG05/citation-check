@@ -13,7 +13,7 @@ import type { FormEvent, RefObject, UIEvent } from 'react'
 import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:8000'
+const API_URL = import.meta.env.VITE_API_URL ?? (import.meta.env.PROD ? '' : 'http://127.0.0.1:8000')
 const MIN_AUDIT_LOADING_MS = 1000
 const ASSISTANT_THINKING_MS = 850
 const DEEP_CHECK_MIN_LOADING_MS = 1400

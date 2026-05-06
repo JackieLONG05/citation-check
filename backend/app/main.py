@@ -3,12 +3,14 @@ from __future__ import annotations
 import asyncio
 from dataclasses import dataclass
 import json
+from pathlib import Path
 import re
 from typing import AsyncIterator, Awaitable, Callable
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
 
 from .audit import ANALYSIS_SCOPE_VALUES, DEFAULT_ANALYSIS_SCOPE, run_audit
 from .citations import extract_citation_mentions, extract_reference_entries, parse_reference_entry
@@ -16,10 +18,12 @@ from .models import AuditResponse, OnlineLookupResult, ParsedSentence, Source, S
 from .parsing import parse_text
 from .resolvers.pipeline import CHECK_MODE_DEEP, CHECK_MODE_FAST, CHECK_MODES, ResolverPipeline
 from .resolvers.utils import extract_dois, normalize_doi
+from .settings import frontend_origins
 from .sources import source_from_doi, source_from_text, source_from_upload, source_from_url
 
 app = FastAPI(title="Citation Check API", version="0.1.0")
 ProgressCallback = Callable[[str, str, str | None], Awaitable[None]]
+FRONTEND_DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
 
 SEARCH_STOPWORDS = {
     "according",
@@ -62,7 +66,7 @@ SEARCH_STOPWORDS = {
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=frontend_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -618,6 +622,19 @@ def _add_job(jobs: list[CandidateSearchJob], seen: set[str], job: CandidateSearc
         return
     seen.add(key)
     jobs.append(job)
+
+
+if FRONTEND_DIST.exists():
+    assets_dir = FRONTEND_DIST / "assets"
+    if assets_dir.exists():
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def serve_frontend(full_path: str) -> FileResponse:
+        requested_file = FRONTEND_DIST / full_path
+        if full_path and requested_file.is_file():
+            return FileResponse(requested_file)
+        return FileResponse(FRONTEND_DIST / "index.html")
 
 
 def _job_citation_key(job: CandidateSearchJob) -> str | None:
