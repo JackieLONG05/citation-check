@@ -1,0 +1,21 @@
+.DS_Store
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+backend/.venv/
+backend/data/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Local runtime output
+.run/
+logs/
+screenshots/
+.playwright-mcp/
+.playwright-cli/
+output/

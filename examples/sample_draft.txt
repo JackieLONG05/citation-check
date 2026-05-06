@@ -1,0 +1,7 @@
+This classroom sample checks citation and quote handling in a short student paragraph.
+Bloom et al. (2015) found that "home working led to a 13% performance increase" among call center workers.
+Bloom et al. (2015) reported that the experiment used call center employees at Ctrip, a Chinese travel agency.
+Piwowar et al. (2018) report that "at least 28% of the scholarly literature is OA".
+The Community Life Survey 2024/25 reports that 9% of adults in England experience high loneliness, measured by the indirect loneliness score of 8 to 9.
+Zephyr et al. (2099) claimed that 88% of prototype chatbots can detect sadness from keyboard colour.
+A small pilot study found that companion apps reduce crisis referrals by 41%.

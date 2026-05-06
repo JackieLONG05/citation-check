@@ -1,0 +1,7 @@
+Piwowar et al. report that at least 28% of the scholarly literature is OA.
+
+Publication details:
+Title: The state of OA: a large-scale analysis of the prevalence and impact of Open Access articles
+Authors: Heather Piwowar, Jason Priem, Vincent Larivière, Juan Pablo Alperin, Lisa Matthias, Bree Norlander, Ashley Farley, Jevin West, Stefanie Haustein
+Year: 2018
+DOI: 10.7717/peerj.4375
