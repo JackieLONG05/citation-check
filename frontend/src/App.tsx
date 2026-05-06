@@ -817,17 +817,22 @@ function UploadedSourceControl({
           </button>
         ) : null}
       </div>
-      <label className="upload-source-dropzone">
+      <button
+        className="upload-source-dropzone"
+        onClick={() => fileInputRef.current?.click()}
+        type="button"
+      >
         <Upload size={18} aria-hidden="true" />
         <span>{files.length ? 'Add or replace source files' : 'Choose source files'}</span>
-        <input
-          accept=".pdf,.txt,text/plain,application/pdf"
-          multiple
-          onChange={(event) => onChange(Array.from(event.target.files ?? []))}
-          ref={fileInputRef}
-          type="file"
-        />
-      </label>
+      </button>
+      <input
+        accept=".pdf,.txt,text/plain,application/pdf"
+        className="upload-source-input"
+        multiple
+        onChange={(event) => onChange(Array.from(event.target.files ?? []))}
+        ref={fileInputRef}
+        type="file"
+      />
       {files.length ? (
         <ul className="upload-source-list">
           {files.map((file) => (

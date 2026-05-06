@@ -492,10 +492,18 @@ input:focus {
   font-size: 13px;
   font-weight: 900;
   cursor: pointer;
+  width: 100%;
 }
 
-.upload-source-dropzone input {
-  display: none;
+.upload-source-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .upload-source-list {
